@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/htmx.org@1.9.6" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <title>HTMX Todo</title>
+  <style type="text/css">
+    [data-theme="light"],
+    :root:not([data-theme="dark"]) {
+      --primary: #d81b60;
+      --primary-hover: #c2185b;
+      --primary-focus: rgba(216, 27, 96, 0.125);
+      --primary-inverse: #FFF;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="container">
+    <h1> HTMX TODO </h1>
+  </header>
+
+  <main class="container">
+    <form
+      hx-post="/todos"
+      hx-target="#todos"
+      hx-ext="json-enc"
+      _="on submit target.reset()"
+    >
+      <label for="todo">Todo</label>
+      <input
+        id="todo"
+        name="todo"
+        type="text"
+        aria-label="Create Todo"
+        placeholder="Write new Todo"
+      />
+      <button type="submit">Push Todo</button>
+    </form>
+
+    <section id="todos" hx-get="/todos" hx-trigger="load"></section>
+  </main>
+  
+</body>
+</html>
